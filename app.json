@@ -1,0 +1,39 @@
+{
+	"expo": {
+		"name": "MacheMizik",
+		"description": "React Native & Expo music player application UI",
+		"slug": "mache-mizik",
+		"version": "1.0.0",
+		"orientation": "portrait",
+		"icon": "./assets/icon.png",
+		"androidStatusBar": {
+			"barStyle": "light-content"
+		},
+		"splash": {
+			"image": "./assets/splash.png",
+			"resizeMode": "cover",
+			"backgroundColor": "#ffffff"
+		},
+		"updates": {
+			"fallbackToCacheTimeout": 0
+		},
+		"assetBundlePatterns": ["**/*"],
+		"ios": {
+			"supportsTablet": true,
+			"bundleIdentifier": "ninjaroot.MacheMizik",
+			"config": {
+				"googleMobileAdsAppId": "ca-app-pub-3940256099942544~1458002511"
+			}
+		},
+		"android": {
+			"package": "ninjaroot.MacheMizik",
+			"adaptiveIcon": {
+				"foregroundImage": "./assets/adaptive-icon.png",
+				"backgroundColor": "#FFFFFF"
+			}
+		},
+		"web": {
+			"favicon": "./assets/favicon.png"
+		}
+	}
+}
