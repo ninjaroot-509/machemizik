@@ -7,6 +7,7 @@ export const SIGNUP = 'SIGNUP';
 export const LOGIN = 'LOGIN';
 export const SONGS = 'SONGS';
 export const FAVOURITE = 'FAVOURITE';
+export const MYSONG = 'MYSONG';
 export const RECENT = 'RECENT';
 export const PLAYLISTS = 'PLAYLISTS';
 export const PLAYLIST = 'PLAYLIST';

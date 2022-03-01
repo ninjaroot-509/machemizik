@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { Dimensions, ScrollView, Image, StyleSheet, View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Dimensions, ScrollView, Image, StyleSheet, View, Text, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PhoneInput from 'react-native-phone-number-input';
 import { Icon } from '../../components';
 import { SCREENS } from '../../constants';
+import { Storage } from '../../helpers';
 const {width, height} = Dimensions.get('window');
 
 const Index = ({ style = {}, navigation }) => {
@@ -16,6 +17,12 @@ const Index = ({ style = {}, navigation }) => {
 	const [valid, setValid] = useState(false);
 	const [showMessage, setShowMessage] = useState(false);
 	const tel = formattedValue;
+
+	const handleLogin = async () => {
+		setLoad(true)
+		await Storage.store('token', 'helloworld', false)
+		navigation.replace(SCREENS.LOADING)
+	}
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -97,7 +104,7 @@ const Index = ({ style = {}, navigation }) => {
 				{load === false ? (
 				<TouchableOpacity
 					style={styles.button}
-					onPress={()=> null}>
+					onPress={handleLogin}>
 					<Text style={{ color: 'white', fontWeight: 'bold' }}>
 					Login
 					</Text>

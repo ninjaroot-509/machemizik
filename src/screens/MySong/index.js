@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { Dimensions, ScrollView, Image, StyleSheet, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAssets } from 'expo-asset';
+import { connect } from 'react-redux';
 
-import { Footer, Header, Section, Drawer } from '../../widgets';
+import { Header, Section, Drawer } from '../../widgets';
 import { Icon } from '../../components';
 
-const Index = ({ style = {} }) => {
+const Index = ({ songs }) => {
 	const [assets] = useAssets([require('../../assets/icons/hamburger.png'), require('../../assets/icons/search.png')]);
 	const [drawer, setDrawer] = useState(false);
 
 	return (
-		<Drawer active={drawer} current="home" onItemPressed={() => setDrawer(false)}>
+		<Drawer active={drawer} current="mysong" onItemPressed={() => setDrawer(false)}>
 			<SafeAreaView style={styles.container}>
 				<Header
 					options={{
@@ -21,27 +22,29 @@ const Index = ({ style = {} }) => {
 						},
 						middle: {
 							show: true,
+							text: 'My Songs',
+						},
+						right: {
+							show: false,
 						},
 					}}
 				/>
 				<View style={styles.sections}>
-					<ScrollView showsVerticalScrollIndicator={true}>
-						<Section.Recent />
-						<Section.MySong style={{ marginTop: 20 }} />
-						<Section.Recomend style={{ marginTop: 20 }} />
-						<Section.Popular style={{ marginTop: 20 }} />
-						{/* <Section.Explore style={{ marginTop: 20 }} /> */}
-						<Section.Playlist style={{ marginTop: 20 }} />
-						<View style={{height: 20}} />
-					</ScrollView>
+					{songs && songs.length > 0 ? (
+						<Section.MusicList audios={songs} indicator={false} useIndex={false} />
+					) : (
+						<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+							<Text style={{ fontSize: 24, fontWeight: 'bold', color: 'rgba(0, 0, 0, .3)' }}>No songs yet!</Text>
+						</View>
+					)}
 				</View>
-				<Footer />
 			</SafeAreaView>
 		</Drawer>
 	);
 };
 
-export default Index;
+const mapStateToProps = (state) => ({ songs: state?.storage?.mysongs });
+export default connect(mapStateToProps, null)(Index);
 
 const styles = StyleSheet.create({
 	container: {

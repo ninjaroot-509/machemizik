@@ -6,6 +6,7 @@ const storage = (state = storageState, { type, payload }) => {
 		case DISPATCHES.STORAGE:
 			const config = {
 				favourites: 'current',
+				mysongs: 'current',
 				recents: 'current',
 				playlists: 'current',
 				...payload,
@@ -14,6 +15,7 @@ const storage = (state = storageState, { type, payload }) => {
 			return {
 				...state,
 				favourites: config?.favourites === 'current' ? state?.favourites : payload?.favourites,
+				mysongs: config?.mysongs === 'current' ? state?.mysongs : payload?.mysongs,
 				recents: config?.recents === 'current' ? state?.recents : payload?.recents,
 				playlists: config?.playlists === 'current' ? state?.playlists : payload?.playlists,
 			};

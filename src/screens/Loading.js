@@ -8,6 +8,33 @@ import { Storage } from '../helpers';
 
 const { width, height } = Dimensions.get('screen');
 
+const mySongs = [
+	{
+		id: 9,
+		title: 'Butterfly Effect',
+		author: 'Travis Scott',
+		img: 'https://res.cloudinary.com/jsxclan/image/upload/v1623895065/GitHub/Projects/Musicont/mock/images/butterfly_effect_oimlry.png',
+		uri: 'https://res.cloudinary.com/jsxclan/video/upload/v1623895068/GitHub/Projects/Musicont/mock/audios/butterfly_effect_yti55d.mp3',
+		durationMillis: 212793,
+	},
+	{
+		id: 8,
+		title: 'Bank Account',
+		author: '21 Savage',
+		img: 'https://res.cloudinary.com/jsxclan/image/upload/v1623895067/GitHub/Projects/Musicont/mock/images/bank_account_s7vfq5.jpg',
+		uri: 'https://res.cloudinary.com/jsxclan/video/upload/v1623895057/GitHub/Projects/Musicont/mock/audios/bank_account_ivbmrg.mp3',
+		durationMillis: 220395,
+	},
+	{
+		id: 10,
+		title: 'Check',
+		author: 'Young Thug',
+		img: 'https://res.cloudinary.com/jsxclan/image/upload/v1623895063/GitHub/Projects/Musicont/mock/images/check_vwxgvl.jpg',
+		uri: 'https://res.cloudinary.com/jsxclan/video/upload/v1623895098/GitHub/Projects/Musicont/mock/audios/check_mmwzqi.mp3',
+		durationMillis: 229773,
+	}
+]
+
 const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 	const [assets] = useAssets([require('../../assets/splash.png')]);
 
@@ -16,6 +43,8 @@ const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 			const favourites = await Storage.get('favourites', true);
 			const recents = await Storage.get('recents', true);
 			const playlists = await Storage.get('playlists', true);
+			await Storage.store('mysongs', mySongs, true);
+			const mysongs = await Storage.get('mysongs', true);
 
 			dispatch({
 				type: DISPATCHES.STORAGE,
@@ -23,6 +52,7 @@ const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 					favourites,
 					recents,
 					playlists,
+					mysongs
 				},
 			});
 

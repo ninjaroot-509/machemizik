@@ -7,8 +7,9 @@ import Login from './Login';
 import Signup from './Signup';
 import Songs from './Songs';
 import Favourite from './Favourite';
+import MySong from './MySong';
 import Recent from './Recent';
 import Playlists from './Playlists';
 import Playlist from './Playlist';
 
-export { Loading, Search, Playing, Home, OnBoard, Login, Signup, Songs, Favourite, Recent, Playlists, Playlist };
+export { Loading, Search, Playing, Home, OnBoard, Login, Signup, Songs, Favourite, MySong, Recent, Playlists, Playlist };

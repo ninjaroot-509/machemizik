@@ -10,11 +10,13 @@ import { connect } from 'react-redux';
 import * as Animatable from 'react-native-animatable';
 
 import { SCREENS } from '../../constants';
+import { Storage } from '../../helpers';
 
 const menus = [
 	{ name: 'home', title: 'Home', screen: SCREENS.HOME },
 	{ name: 'songs', title: 'songs', screen: SCREENS.SONGS },
 	{ name: 'favourite', title: 'Favourite', screen: SCREENS.FAVOURITE },
+	{ name: 'mysong', title: 'My Songs', screen: SCREENS.MYSONG },
 	{ name: 'recent', title: 'Recently Played', screen: SCREENS.RECENT },
 	{ name: 'playlist', title: 'Playlist', screen: SCREENS.PLAYLISTS },
 ];
@@ -26,11 +28,11 @@ const Index = ({
 	onItemPressed = () => {},
 	bottomBtn = {
 		text: 'Deconnecter',
-		onPress: () => null,
+		onPress: null,
 	},
 	children,
 }) => {
-	const { navigate } = useNavigation();
+	const { navigate, replace } = useNavigation();
 	useAssets([require('../../assets/logo.png')]);
 	const screenScale = useRef(new Animated.Value(1)).current;
 	const screenLeft = useRef(new Animated.Value(0)).current;
@@ -50,10 +52,15 @@ const Index = ({
 		anim(screenRadius, active ? 15 : 0).start();
 	}, [active]);
 
+	const handleLogout = async () => {
+		await Storage.clear()
+		replace(SCREENS.LOADING)
+	}
+
 	return (
 		<>
 			<StatusBar style={active ? 'light' : 'dark'} />
-			<LinearGradient style={styles.container} colors={['#f24160', '#C55234']}>
+			<LinearGradient style={styles.container} colors={['#f24160', '#800318']}>
 				<View style={styles.menuContainer}>
 					<Animatable.View style={styles.header} animation={active ? 'slideInDown' : 'slideOutUp'} duration={2000}>
 						<Image style={styles.logo} source={require('../../assets/logo.png')} />
@@ -79,14 +86,14 @@ const Index = ({
 						))}
 					</View>
 					<Animatable.View style={styles.bottom} animation={active ? 'slideInUp' : 'slideOutDown'} duration={2000}>
-						<TouchableOpacity style={styles.bottomBtn} activeOpacity={0.7} onPress={bottomBtn?.onPress}>
-							<Text style={styles.bottomBtnTxt}>{bottomBtn?.text}</Text>
-						</TouchableOpacity>
 						<Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite">
 							<TouchableOpacity style={styles.bottomBtn} activeOpacity={0.7} onPress={() => null}>
 								<Text style={styles.bottomBtnTxt}>Share</Text>
 							</TouchableOpacity>
 						</Animatable.View>
+						<TouchableOpacity style={styles.bottomBtn1} activeOpacity={0.7} onPress={handleLogout}>
+							<Text style={styles.bottomBtnTxt}>{bottomBtn?.text}</Text>
+						</TouchableOpacity>
 					</Animatable.View>
 				</View>
 
@@ -159,11 +166,11 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	itemActive: {
-		backgroundColor: 'rgba(0, 0, 0, .3)',
+		backgroundColor: 'rgba(0, 0, 0, .2)',
 	},
 	itemTxt: {
 		color: 'rgba(255, 255, 255, .45)',
-		fontSize: 20,
+		fontSize: 19,
 		textTransform: 'uppercase',
 	},
 	itemTxtActive: {
@@ -174,14 +181,23 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		width: null,
-		backgroundColor: 'rgba(0, 0, 0, .4)',
+		backgroundColor: '#f24160',
 		paddingVertical: 10,
 		borderRadius: 6,
-		marginBottom: 5,
+		marginVertical: 5,
+	},
+	bottomBtn1: {
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: null,
+		backgroundColor: '#e02d39',
+		paddingVertical: 10,
+		borderRadius: 6,
+		marginVertical: 5,
 	},
 	bottomBtnTxt: {
-		color: 'rgba(255, 255, 255, .8)',
-		fontSize: 20,
+		color: '#ffffff',
+		fontSize: 18,
 		textTransform: 'uppercase',
 	},
 	screen: {
