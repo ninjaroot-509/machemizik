@@ -5,6 +5,7 @@ const reducer = combineReducers({
 	app: reducers.app,
 	player: reducers.player,
 	recomend: reducers.recomend,
+	popular: reducers.popular,
 	storage: reducers.storage,
 });
 

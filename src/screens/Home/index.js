@@ -28,7 +28,8 @@ const Index = ({ style = {} }) => {
 					<ScrollView showsVerticalScrollIndicator={true}>
 						<Section.Recent />
 						<Section.Recomend style={{ marginTop: 20 }} />
-						<Section.Explore style={{ marginTop: 20 }} />
+						<Section.Popular style={{ marginTop: 20 }} />
+						{/* <Section.Explore style={{ marginTop: 20 }} /> */}
 						<Section.Playlist style={{ marginTop: 20 }} />
 						<View style={{height: 20}} />
 					</ScrollView>

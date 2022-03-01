@@ -111,16 +111,16 @@ const Playlist = ({ storedPlaylists, dispatch, visible = false, onClose = () => 
 				onPress={closeModal}
 			/>
 			<Animatable.View style={styles.modal} animation={animation} duration={300}>
-				<Text style={{ color: 'rgba(0, 0, 0, .5)', fontSize: 24, fontWeight: 'bold', letterSpacing: 1, marginBottom: 20 }}>Playlists</Text>
+				<Text style={{ color: '#141414', fontSize: 24, fontWeight: 'bold', marginBottom: 20 }}>Playlists</Text>
 				{playlists.map(({ name, songs }, key) => (
 					<TouchableOpacity key={key} style={styles.item} onPress={() => addToPlaylist(name)} activeOpacity={0.6}>
-						<Text style={{ color: 'rgba(0, 0, 0, .5)', fontSize: 16, letterSpacing: 1 }}>{`${name} (${songs.length || 0})`}</Text>
+						<Text style={{ color: '#141414', fontSize: 16 }}>{`${name} (${songs.length || 0})`}</Text>
 					</TouchableOpacity>
 				))}
 
 				{!newPlaylist && (
 					<TouchableOpacity style={styles.item} onPress={() => setNewPlaylist(true)} activeOpacity={0.6}>
-						<Text style={{ color: 'rgba(0, 0, 0, .5)', fontSize: 16, letterSpacing: 1 }}>Create playlist</Text>
+						<Text style={{ color: '#141414', fontSize: 16 }}>Create playlist</Text>
 					</TouchableOpacity>
 				)}
 
@@ -168,9 +168,10 @@ const styles = StyleSheet.create({
 	item: {
 		paddingVertical: 10,
 		paddingHorizontal: 15,
-		backgroundColor: '#E6E6E6',
+		backgroundColor: '#efefef',
 		marginBottom: 10,
 		borderRadius: 5,
+		elevation: 2
 	},
 	input: {
 		flex: 1,
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
 	},
 	textInput: {
 		flex: 1,
-		color: 'rgba(0, 0, 0, .5)',
+		color: '#141414',
 		marginLeft: 10,
 	},
 	btn: {
@@ -191,9 +192,8 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	btnTxt: {
-		color: '#C4C4C4',
+		color: '#cacaca',
 		fontSize: 18,
 		fontWeight: 'bold',
-		letterSpacing: 1,
 	},
 });

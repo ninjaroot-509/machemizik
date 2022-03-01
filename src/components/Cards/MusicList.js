@@ -13,20 +13,6 @@ const MusicList = ({ style = {}, imageURL, title = 'Song Title', author = `Autho
 		<>
 			<TouchableOpacity style={[styles.container, style]} onLongPress={() => setMoreOptionsModal(true)} activeOpacity={0.8}>
 				<View style={styles.left}>
-					<Image
-						style={{
-							width: 70,
-							height: 70,
-							position: 'absolute',
-							bottom: -3,
-							opacity: 0.5,
-							alignSelf: 'center',
-						}}
-						source={{ uri: imageURL }}
-						resizeMode="cover"
-						borderRadius={6}
-						blurRadius={100}
-					/>
 					<Image style={styles.coverArt} source={{ uri: imageURL }} resizeMode="cover" borderRadius={6} />
 				</View>
 				<View style={styles.middle}>
@@ -40,8 +26,8 @@ const MusicList = ({ style = {}, imageURL, title = 'Song Title', author = `Autho
 				</View>
 				<View style={styles.right}>
 					<TouchableOpacity onPress={onPlayPress}>
-						<LinearGradient style={styles.playBtn} colors={['#939393', '#000']}>
-							<Icon name="play" color="#C4C4C4" />
+						<LinearGradient style={styles.playBtn} colors={['#fff', '#f24160']}>
+							<Icon name="play" color="#ffffff" />
 						</LinearGradient>
 					</TouchableOpacity>
 				</View>
@@ -77,7 +63,7 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 18,
 		fontWeight: 'bold',
-		letterSpacing: 1,
+		// letterSpacing: 1,
 	},
 	author: {
 		color: '#888',
@@ -92,7 +78,7 @@ const styles = StyleSheet.create({
 		height: 50,
 		paddingLeft: 4,
 		borderRadius: 100,
-		borderWidth: 1.5,
-		borderColor: '#FFF',
+		borderWidth: 0.25,
+		borderColor: '#f2416090',
 	},
 });

@@ -40,8 +40,13 @@ const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 	};
 
 	const init = async () => {
-		await getStorage();
-		replace(SCREENS.HOME);
+		const token = await Storage.get('token', false);
+		if (token) {
+			await getStorage();
+			replace(SCREENS.HOME);
+		} else {
+			replace(SCREENS.ONBOARD);
+		}
 	};
 
 	useEffect(() => {

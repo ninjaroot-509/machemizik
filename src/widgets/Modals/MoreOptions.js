@@ -48,10 +48,10 @@ const MoreOptions = ({
 				onPress={closeModal}
 			/>
 			<Animatable.View style={styles.modal} animation={animation} duration={300}>
-				<Text style={{ color: 'rgba(0, 0, 0, .5)', fontSize: 24, fontWeight: 'bold', letterSpacing: 1, marginBottom: 20 }}>{title}</Text>
+				<Text style={{ color: '#141414', fontSize: 24, fontWeight: 'bold', marginBottom: 20 }}>{title}</Text>
 				{moreOptions.map(({ text, onPress }, key) => (
-					<TouchableOpacity key={key} style={{ paddingVertical: 10, paddingHorizontal: 15, backgroundColor: '#E6E6E6', marginBottom: 10, borderRadius: 5 }} onPress={onPress} activeOpacity={0.6}>
-						<Text style={{ color: 'rgba(0, 0, 0, .5)', fontSize: 16, letterSpacing: 1 }}>{text}</Text>
+					<TouchableOpacity key={key} style={styles.allButton} onPress={onPress} activeOpacity={0.6}>
+						<Text style={{ color: '#000', fontSize: 16 }}>{text}</Text>
 					</TouchableOpacity>
 				))}
 			</Animatable.View>
@@ -74,4 +74,12 @@ const styles = StyleSheet.create({
 		borderTopRightRadius: 15,
 		zIndex: 9999,
 	},
+	allButton: {
+		paddingVertical: 10, 
+		paddingHorizontal: 15, 
+		backgroundColor: '#efefef', 
+		marginBottom: 10, 
+		borderRadius: 5,
+		elevation: 2
+	}
 });
