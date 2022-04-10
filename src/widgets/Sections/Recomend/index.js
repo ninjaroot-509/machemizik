@@ -7,7 +7,7 @@ import { Card } from '../../../components';
 import { useNavigation } from '@react-navigation/native';
 import { SCREENS } from '../../../constants';
 
-const Index = ({ songs, recomends, style = {} }) => {
+const Index = ({ songs, style = {} }) => {
 	const { navigate } = useNavigation();
 	const [audios, setAudios] = useState([]);
 
@@ -20,21 +20,21 @@ const Index = ({ songs, recomends, style = {} }) => {
 	};
 
 	useEffect(() => {
-		setAudios(recomends);
-	}, [recomends]);
+		setAudios(songs);
+	}, [songs]);
 
 	return (
 		audios &&
 		audios.length > 0 && (
-			<Container style={style} title="Recommended for you">
+			<Container style={style} title="Recommandé pour vous">
 				{audios.map((index, key) => (
 					<Card.Recomend
 						key={key}
 						style={[key === 0 && { marginLeft: 20 }]}
-						imageURL={songs[key]?.img}
-						title={songs[key]?.title}
-						author={songs[key]?.author}
-						onPress={() => handlePress(songs[key], key)}
+						imageURL={index?.img}
+						title={index?.title}
+						author={index?.author}
+						onPress={() => handlePress(index, key)}
 					/>
 				))}
 			</Container>
@@ -42,7 +42,7 @@ const Index = ({ songs, recomends, style = {} }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({ songs: state?.player?.songs, recomends: state?.recomend?.recomend });
+const mapStateToProps = (state) => ({ songs: state?.storage?.songs });
 export default connect(mapStateToProps, null)(memo(Index));
 
 const styles = StyleSheet.create({});

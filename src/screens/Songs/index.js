@@ -22,7 +22,7 @@ const Index = ({ songs }) => {
 						},
 						middle: {
 							show: true,
-							text: 'All Songs',
+							text: 'Toutes les musiques',
 						},
 						right: {
 							show: false,
@@ -37,15 +37,16 @@ const Index = ({ songs }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({ songs: state?.player?.songs });
+const mapStateToProps = (state) => ({ songs: state?.storage?.songs });
 export default connect(mapStateToProps, null)(Index);
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: '#ffffff'
 	},
 	sections: {
 		flex: 1,
-		marginTop: Dimensions.get('screen').height * 0.025,
+		marginTop: Dimensions.get('screen').height * 0.015,
 	},
 });

@@ -131,12 +131,13 @@ const Index = ({ songs, dispatch, style = {}, audios = [], indicator = true, use
 	);
 };
 
-const mapStateToProps = (state) => ({ songs: state?.player?.songs });
+const mapStateToProps = (state) => ({ songs: state?.storage?.songs });
 const mapDispatchToProps = (dispatch) => ({ dispatch });
 export default connect(mapStateToProps, mapDispatchToProps)(memo(Index));
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: '#ffffff'
 	},
 });

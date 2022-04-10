@@ -22,7 +22,7 @@ const Index = ({ songs }) => {
 						},
 						middle: {
 							show: true,
-							text: 'My Songs',
+							text: 'Mes Musiques',
 						},
 						right: {
 							show: false,
@@ -34,7 +34,7 @@ const Index = ({ songs }) => {
 						<Section.MusicList audios={songs} indicator={false} useIndex={false} />
 					) : (
 						<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-							<Text style={{ fontSize: 24, fontWeight: 'bold', color: 'rgba(0, 0, 0, .3)' }}>No songs yet!</Text>
+							<Text style={{ fontSize: 24, fontWeight: 'bold', color: 'rgba(0, 0, 0, .3)' }}>Pas encore de chansons!</Text>
 						</View>
 					)}
 				</View>

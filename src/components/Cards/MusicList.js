@@ -4,7 +4,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import Icon from '../Icon';
 import * as Modal from '../../widgets/Modals';
-import { millisToMin } from '../../helpers';
 
 const MusicList = ({ style = {}, imageURL, title = 'Song Title', author = `Author Name`, duration = '03:22', onPlayPress = () => {}, moreOptions = [] }) => {
 	const [moreOptionsModal, setMoreOptionsModal] = useState(false);
@@ -22,7 +21,6 @@ const MusicList = ({ style = {}, imageURL, title = 'Song Title', author = `Autho
 						</Text>
 						<Text style={styles.author}>{author}</Text>
 					</View>
-					<Text style={styles.duration}>{millisToMin(duration)}</Text>
 				</View>
 				<View style={styles.right}>
 					<TouchableOpacity onPress={onPlayPress}>
@@ -50,26 +48,24 @@ const styles = StyleSheet.create({
 	left: {},
 	middle: {
 		flex: 1,
-		height: 80,
+		height: 50,
 		marginLeft: 10,
 		marginRight: 20,
 		justifyContent: 'space-between',
 	},
 	right: {},
 	coverArt: {
-		width: 80,
-		height: 80,
+		width: 60,
+		height: 60,
 	},
 	title: {
-		fontSize: 18,
+		fontSize: 20,
 		fontWeight: 'bold',
 		// letterSpacing: 1,
+		paddingVertical: 3
 	},
 	author: {
 		color: '#888',
-	},
-	duration: {
-		color: '#A4A4A4',
 	},
 	playBtn: {
 		justifyContent: 'center',

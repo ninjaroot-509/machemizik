@@ -33,14 +33,14 @@ const Index = ({ style = {}, navigation }) => {
 					/>
                 </View>
 				<View style={{alignItems: 'center'}}>
-					<Text style={{fontSize: 25, color:'#000', fontWeight: '700'}}>Welcome Back</Text>
-					<Text style={{fontSize: 17, color:'#cacaca', fontWeight: '700'}}>Register to continue</Text>
+					<Text style={{fontSize: 25, color:'#000', fontWeight: '700'}}>Content de te revoir</Text>
+					<Text style={{fontSize: 17, color:'#cacaca', fontWeight: '700'}}>Inscrivez-vous pour continuer</Text>
 				</View>
 			</View>
 			<View style={{alignItems: 'center'}}>
 			<View style={{ padding: 5 }}>
 				<Text style={{ fontSize: 14, fontWeight: '500', color: '#f24160', padding: 7 }}>
-					Phone
+					Téléphoner
 				</Text>
 				<PhoneInput
 					containerStyle={{
@@ -54,7 +54,7 @@ const Index = ({ style = {}, navigation }) => {
 					codeTextStyle={{ color: '#000000' }}
 					flagButtonStyle={{ color: '#8E8F92' }}
 					withShadow
-					withDarkTheme
+					placeholder={'Entrer votre numero'}
 					ref={phoneInput}
 					defaultValue={phone}
 					defaultCode="HT"
@@ -70,30 +70,28 @@ const Index = ({ style = {}, navigation }) => {
 			</View>
 			<View style={{ padding: 5 }}>
 				<Text style={{ fontSize: 14, fontWeight: '500', color: '#f24160', padding: 7 }}>
-					Password
+					Mot de passe
 				</Text>
 				<TextInput
 				onChangeText={(password) => setPassword(password)}
 				value={password}
-				placeholder={'Enter your password'}
+				placeholder={'Entrer votre mot de passe'}
 				placeholderTextColor={'#8E8F92'}
 				secureTextEntry={true}
 				style={styles.input}
-				returnKeyType="next"
 				/>
 			</View>
 			<View style={{ padding: 5 }}>
 				<Text style={{ fontSize: 14, fontWeight: '500', color: '#f24160', padding: 7 }}>
-					Comfirm Password
+					Confirmez le mot de passe
 				</Text>
 				<TextInput
 				onChangeText={(password1) => setPassword1(password1)}
 				value={password1}
-				placeholder={'Comfirm your password'}
+				placeholder={'Confirmer votre mot de passe'}
 				placeholderTextColor={'#8E8F92'}
 				secureTextEntry={true}
 				style={styles.input}
-				returnKeyType="next"
 				/>
 			</View>
 			<View style={{ paddingVertical: 20 }}>
@@ -102,7 +100,7 @@ const Index = ({ style = {}, navigation }) => {
 					style={styles.button}
 					onPress={()=> null}>
 					<Text style={{ color: 'white', fontWeight: 'bold' }}>
-						Register
+						S'inscrire
 					</Text>
 				</TouchableOpacity>
 				) : (
@@ -120,7 +118,7 @@ const Index = ({ style = {}, navigation }) => {
 						textAlign: 'center',
 						fontWeight: '700'
 					}}>
-					Do you have an account?
+					Avez-vous un compte?
 					</Text>
 					<TouchableOpacity onPress={() => navigation.replace(SCREENS.LOGIN)}>
 						<Text
@@ -131,7 +129,7 @@ const Index = ({ style = {}, navigation }) => {
 							textAlign: 'center',
 							marginHorizontal: 3
 						}}>
-							Login
+							Connecter
 						</Text>
 					</TouchableOpacity>
 				</View>

@@ -252,7 +252,7 @@ const Index = ({ song, songs, dispatch }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({ song: state?.player?.currentSong, songs: state?.player?.songs });
+const mapStateToProps = (state) => ({ song: state?.storage?.currentSong, songs: state?.storage?.songs });
 const mapDispatchToProps = (dispatch) => ({ dispatch });
 export default connect(mapStateToProps, mapDispatchToProps)(memo(Index));
 

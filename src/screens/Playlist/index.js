@@ -92,7 +92,7 @@ const Index = ({ songs, playlists, dispatch, route: { params }, navigation: { go
 	);
 };
 
-const mapStateToProps = (state) => ({ songs: state?.player.songs, playlists: state?.storage?.playlists });
+const mapStateToProps = (state) => ({ songs: state?.storage.songs, playlists: state?.storage?.playlists });
 const mapDispatchToProps = (dispatch) => ({ dispatch });
 export default connect(mapStateToProps, mapDispatchToProps)(Index);
 

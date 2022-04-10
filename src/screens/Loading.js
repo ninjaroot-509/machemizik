@@ -1,50 +1,137 @@
 import React, { useEffect } from 'react';
-import { Dimensions, Image, StyleSheet } from 'react-native';
+import { Dimensions, Image, StyleSheet, ActivityIndicator, View } from 'react-native';
 import { useAssets } from 'expo-asset';
 import { connect } from 'react-redux';
 
 import { DISPATCHES, SCREENS } from '../constants';
 import { Storage } from '../helpers';
-
-const { width, height } = Dimensions.get('screen');
-
-const mySongs = [
-	{
-		id: 9,
-		title: 'Butterfly Effect',
-		author: 'Travis Scott',
-		img: 'https://res.cloudinary.com/jsxclan/image/upload/v1623895065/GitHub/Projects/Musicont/mock/images/butterfly_effect_oimlry.png',
-		uri: 'https://res.cloudinary.com/jsxclan/video/upload/v1623895068/GitHub/Projects/Musicont/mock/audios/butterfly_effect_yti55d.mp3',
-		durationMillis: 212793,
-	},
-	{
-		id: 8,
-		title: 'Bank Account',
-		author: '21 Savage',
-		img: 'https://res.cloudinary.com/jsxclan/image/upload/v1623895067/GitHub/Projects/Musicont/mock/images/bank_account_s7vfq5.jpg',
-		uri: 'https://res.cloudinary.com/jsxclan/video/upload/v1623895057/GitHub/Projects/Musicont/mock/audios/bank_account_ivbmrg.mp3',
-		durationMillis: 220395,
-	},
-	{
-		id: 10,
-		title: 'Check',
-		author: 'Young Thug',
-		img: 'https://res.cloudinary.com/jsxclan/image/upload/v1623895063/GitHub/Projects/Musicont/mock/images/check_vwxgvl.jpg',
-		uri: 'https://res.cloudinary.com/jsxclan/video/upload/v1623895098/GitHub/Projects/Musicont/mock/audios/check_mmwzqi.mp3',
-		durationMillis: 229773,
-	}
-]
+import { Request } from '../components';
 
 const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 	const [assets] = useAssets([require('../../assets/splash.png')]);
 
 	const getStorage = () => {
 		return new Promise(async (resolve) => {
+			const token = await Storage.get('token', false);
+			// console.log(token)
 			const favourites = await Storage.get('favourites', true);
+			const user = await Storage.get('user', true);
+
+			try {
+				const songsLa = await Request.getAllSong(token);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						songs: songsLa,
+					},
+				});
+			} catch (e) {
+				if (e.response.status === 401) {
+					await Storage.clear()
+					replace(SCREENS.LOGIN)
+				}
+				console.log("The error is : " + Object.values(e.response.data).flat())
+			}
+
+			try {
+				const albumsLa = await Request.getAllAlbum(token);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						albums: albumsLa,
+					},
+				});
+			} catch (e) {
+				console.log("The error is : " + Object.values(e.response.data).flat())
+			}
+
+			try {
+				const genresLa = await Request.getAllGenre(token);
+				await Storage.store('genres', genresLa, true);
+				const genres = await Storage.get('genres', true);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						genres,
+					},
+				});
+			} catch (e) {
+				console.log("The error is : " + Object.values(e.response.data).flat())
+				const genres = await Storage.get('genres', true);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						genres,
+					},
+				});
+			}
+
+			try {
+				const mysongsLa = await Request.getMySong(token);
+				await Storage.store('mysongs', mysongsLa, true);
+				const mysongs = await Storage.get('mysongs', true);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						mysongs,
+					},
+				});
+			} catch (e) {
+				console.log("The error is : " + Object.values(e.response.data).flat())
+				const mysongs = await Storage.get('mysongs', true);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						mysongs,
+					},
+				});
+			}
+
+
+			try {
+				const myalbumsLa = await Request.getMyAlbum(token);
+				await Storage.store('myalbums', myalbumsLa, true);
+				const myalbums = await Storage.get('myalbums', true);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						myalbums,
+					},
+				});
+			} catch (e) {
+				console.log("The error is : " + Object.values(e.response.data).flat())
+				const myalbums = await Storage.get('myalbums', true);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						myalbums,
+					},
+				});
+			}
+
+			try {
+				const mydownloadsLa = await Request.getMySongDownload(token);
+				await Storage.store('mydownloads', mydownloadsLa, true);
+				const mydownloads = await Storage.get('mydownloads', true);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						mydownloads,
+					},
+				});
+			} catch (e) {
+				console.log("The error is : " + Object.values(e.response.data).flat())
+				const mydownloads = await Storage.get('mydownloads', true);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						mydownloads,
+					},
+				});
+			}
+
 			const recents = await Storage.get('recents', true);
 			const playlists = await Storage.get('playlists', true);
-			await Storage.store('mysongs', mySongs, true);
-			const mysongs = await Storage.get('mysongs', true);
 
 			dispatch({
 				type: DISPATCHES.STORAGE,
@@ -52,11 +139,10 @@ const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 					favourites,
 					recents,
 					playlists,
-					mysongs
 				},
 			});
 
-			if (recents && recents.length > 0) {
+			if (songs && recents && recents.length > 0) {
 				dispatch({
 					type: DISPATCHES.SET_CURRENT_SONG,
 					payload: {
@@ -83,16 +169,13 @@ const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 		init();
 	}, []);
 
-	return <Image style={styles.img} source={require('../../assets/splash.png')} resizeMode="cover" />;
+	return (
+		<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff'}}>
+			<ActivityIndicator size="large" color={'red'} />
+		</View>
+	)
 };
 
-const mapStateToProps = (state) => ({ songs: state?.player?.songs });
+const mapStateToProps = (state) => ({ songs: state?.storage?.songs });
 const mapDispatchToProps = (dispatch) => ({ dispatch });
 export default connect(mapStateToProps, mapDispatchToProps)(Loading);
-
-const styles = StyleSheet.create({
-	img: {
-		width,
-		height,
-	},
-});

@@ -26,7 +26,7 @@ const Index = ({ recents, songs, style = {} }) => {
 	return (
 		audios &&
 		audios.length > 0 && (
-			<Container style={style} title="Recently played">
+			<Container style={style} title="Joué récemment">
 				{audios.map((index, key) => (
 					<Card.Recent
 						key={key}
@@ -42,7 +42,7 @@ const Index = ({ recents, songs, style = {} }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({ songs: state?.player?.songs, recents: state?.storage?.recents });
+const mapStateToProps = (state) => ({ songs: state?.storage?.songs, recents: state?.storage?.recents });
 export default connect(mapStateToProps, null)(memo(Index));
 
 const styles = StyleSheet.create({});

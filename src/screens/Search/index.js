@@ -30,16 +30,15 @@ const Index = ({ songs }) => {
 
 	return (
 		<>
-			<StatusBar style="dark" />
 			<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 				<SafeAreaView style={styles.container}>
 					<View style={styles.header}>
 						<View style={styles.input}>
 							<Icon name="search" color="#FFF" />
-							<TextInput style={styles.textInput} onChangeText={handleInput} value={search} returnKeyType="search" placeholder="Search..." />
+							<TextInput style={styles.textInput} onChangeText={handleInput} value={search} returnKeyType="search" placeholder="Rechercher..." />
 						</View>
 						<TouchableOpacity style={styles.btn} onPress={() => goBack()}>
-							<Text style={styles.btnTxt}>Cancel</Text>
+							<Text style={styles.btnTxt}>Annuler</Text>
 						</TouchableOpacity>
 					</View>
 					<View style={styles.result}>
@@ -47,7 +46,7 @@ const Index = ({ songs }) => {
 							<Section.MusicList audios={audios} />
 						) : (
 							<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-								<Text style={{ fontSize: 24, fontWeight: 'bold', color: 'rgba(0, 0, 0, .3)' }}>Search something...</Text>
+								<Text style={{ fontSize: 18, fontWeight: 'bold', color: 'rgba(0, 0, 0, .3)' }}>Rechercher quelque chose ...</Text>
 							</View>
 						)}
 					</View>
@@ -57,13 +56,14 @@ const Index = ({ songs }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({ songs: state?.player?.songs });
+const mapStateToProps = (state) => ({ songs: state?.storage?.songs });
 export default connect(mapStateToProps, null)(memo(Index));
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		justifyContent: 'space-between',
+		backgroundColor: '#ffffff'
 	},
 	header: {
 		flexDirection: 'row',

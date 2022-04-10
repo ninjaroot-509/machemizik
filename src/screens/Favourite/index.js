@@ -22,7 +22,7 @@ const Index = ({ songs }) => {
 						},
 						middle: {
 							show: true,
-							text: 'My Favourites',
+							text: 'Mes préférés',
 						},
 						right: {
 							show: false,
@@ -34,7 +34,7 @@ const Index = ({ songs }) => {
 						<Section.MusicList audios={songs} indicator={false} useIndex={true} />
 					) : (
 						<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-							<Text style={{ fontSize: 24, fontWeight: 'bold', color: 'rgba(0, 0, 0, .3)' }}>No favourite yet!</Text>
+							<Text style={{ fontSize: 24, fontWeight: 'bold', color: 'rgba(0, 0, 0, .3)' }}>Pas encore favori!</Text>
 						</View>
 					)}
 				</View>
@@ -49,9 +49,10 @@ export default connect(mapStateToProps, null)(Index);
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
+		backgroundColor: '#ffffff'
 	},
 	sections: {
 		flex: 1,
-		marginTop: Dimensions.get('screen').height * 0.025,
+		marginTop: Dimensions.get('screen').height * 0.015,
 	},
 });

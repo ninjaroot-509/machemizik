@@ -13,14 +13,14 @@ const Index = ({ songs, playlists, style = {} }) => {
 	return (
 		playlists &&
 		playlists.length > 0 && (
-			<Container style={style} title="My playlists">
+			<Container style={style} title="Mes playlists">
 				{playlists.map((playlist, key) => (
 					<Card.Playlist
 						key={key}
 						style={[key === 0 && { marginLeft: 20 }]}
 						imageURL={songs[playlist?.songs[0]]?.img}
 						title={playlist?.name}
-						subtitle={`${playlist?.songs.length} Songs`}
+						subtitle={`${playlist?.songs.length} musiques`}
 						onPress={() => {
 							const playlistIndex = playlists.findIndex((i) => i?.name.toLowerCase() === playlist?.name.toLowerCase());
 							navigation.push(SCREENS.PLAYLIST, { playlistIndex });
@@ -32,7 +32,7 @@ const Index = ({ songs, playlists, style = {} }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({ songs: state?.player?.songs, playlists: state?.storage?.playlists });
+const mapStateToProps = (state) => ({ songs: state?.storage?.songs, playlists: state?.storage?.playlists });
 export default connect(mapStateToProps, null)(Index);
 
 const styles = StyleSheet.create({});

@@ -13,11 +13,11 @@ import { SCREENS } from '../../constants';
 import { Storage } from '../../helpers';
 
 const menus = [
-	{ name: 'home', title: 'Home', screen: SCREENS.HOME },
-	{ name: 'songs', title: 'songs', screen: SCREENS.SONGS },
-	{ name: 'favourite', title: 'Favourite', screen: SCREENS.FAVOURITE },
-	{ name: 'mysong', title: 'My Songs', screen: SCREENS.MYSONG },
-	{ name: 'recent', title: 'Recently Played', screen: SCREENS.RECENT },
+	{ name: 'home', title: 'Acceuil', screen: SCREENS.HOME },
+	{ name: 'songs', title: 'Musiques listes', screen: SCREENS.SONGS },
+	{ name: 'favourite', title: 'Préférée', screen: SCREENS.FAVOURITE },
+	{ name: 'mysong', title: 'Mes musiques', screen: SCREENS.MYSONG },
+	{ name: 'recent', title: 'Joué récemment', screen: SCREENS.RECENT },
 	{ name: 'playlist', title: 'Playlist', screen: SCREENS.PLAYLISTS },
 ];
 
@@ -88,7 +88,7 @@ const Index = ({
 					<Animatable.View style={styles.bottom} animation={active ? 'slideInUp' : 'slideOutDown'} duration={2000}>
 						<Animatable.View animation="pulse" easing="ease-out" iterationCount="infinite">
 							<TouchableOpacity style={styles.bottomBtn} activeOpacity={0.7} onPress={() => null}>
-								<Text style={styles.bottomBtnTxt}>Share</Text>
+								<Text style={styles.bottomBtnTxt}>Partager</Text>
 							</TouchableOpacity>
 						</Animatable.View>
 						<TouchableOpacity style={styles.bottomBtn1} activeOpacity={0.7} onPress={handleLogout}>
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
 	},
 	itemTxt: {
 		color: 'rgba(255, 255, 255, .45)',
-		fontSize: 19,
+		fontSize: 17,
 		textTransform: 'uppercase',
 	},
 	itemTxtActive: {

@@ -3,7 +3,7 @@ import { Dimensions, ScrollView, Image, StyleSheet, View, Text, TextInput, Touch
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PhoneInput from 'react-native-phone-number-input';
-import { Icon } from '../../components';
+import { Icon, Request } from '../../components';
 import { SCREENS } from '../../constants';
 import { Storage } from '../../helpers';
 const {width, height} = Dimensions.get('window');
@@ -14,15 +14,29 @@ const Index = ({ style = {}, navigation }) => {
 	const [load, setLoad] = useState(false);
 	const phoneInput = useRef(null);
 	const [formattedValue, setFormattedValue] = useState('');
-	const [valid, setValid] = useState(false);
-	const [showMessage, setShowMessage] = useState(false);
 	const tel = formattedValue;
 
-	const handleLogin = async () => {
-		setLoad(true)
-		await Storage.store('token', 'helloworld', false)
-		navigation.replace(SCREENS.LOADING)
-	}
+	const handleLoginSubmit = async () => {
+		if (phone != '' && password != '') {
+		  if (load === false) {
+			setLoad(true);
+			const dataBody = { phone: formattedValue, password: password };
+			try {
+			  const result = await Request.postHandleLogin(dataBody)
+			  await Storage.store('token', result.token, false)
+			  await Storage.store('user', result.user, true)
+			  navigation.replace(SCREENS.LOADING)
+			  setLoad(false);
+			} catch (e) {
+			  alert("The error is : " + Object.values(e?.response?.data).flat())
+			  setLoad(false);
+			}
+		   
+		  }
+		} else {
+		  alert('veuillez remplir tout les champs!!');
+		}
+	  };
 
 	return (
 		<SafeAreaView style={styles.container}>
@@ -40,14 +54,14 @@ const Index = ({ style = {}, navigation }) => {
 					/>
                 </View>
 				<View style={{alignItems: 'center'}}>
-					<Text style={{fontSize: 25, color:'#000', fontWeight: '700'}}>Welcome Back</Text>
-					<Text style={{fontSize: 17, color:'#cacaca', fontWeight: '700'}}>Sign to continue</Text>
+					<Text style={{fontSize: 25, color:'#000', fontWeight: '700'}}>Content de te revoir</Text>
+					<Text style={{fontSize: 17, color:'#cacaca', fontWeight: '700'}}>Connecter pour continuer</Text>
 				</View>
 			</View>
 			<View style={{alignItems: 'center'}}>
 			<View style={{ padding: 5 }}>
 				<Text style={{ fontSize: 14, fontWeight: '500', color: '#f24160', padding: 7 }}>
-					Phone
+					Téléphoner
 				</Text>
 				<PhoneInput
 					containerStyle={{
@@ -61,7 +75,7 @@ const Index = ({ style = {}, navigation }) => {
 					codeTextStyle={{ color: '#000000' }}
 					flagButtonStyle={{ color: '#8E8F92' }}
 					withShadow
-					withDarkTheme
+					placeholder={'Entrer votre numero'}
 					ref={phoneInput}
 					defaultValue={phone}
 					defaultCode="HT"
@@ -77,12 +91,12 @@ const Index = ({ style = {}, navigation }) => {
 			</View>
 			<View style={{ padding: 5 }}>
 				<Text style={{ fontSize: 14, fontWeight: '500', color: '#f24160', padding: 7 }}>
-					Password
+					Mot de passe
 				</Text>
 				<TextInput
 				onChangeText={(password) => setPassword(password)}
 				value={password}
-				placeholder={'Enter your password'}
+				placeholder={'Entrer votre mot de passe'}
 				placeholderTextColor={'#8E8F92'}
 				secureTextEntry={true}
 				style={styles.input}
@@ -96,7 +110,7 @@ const Index = ({ style = {}, navigation }) => {
 					textAlign: 'right',
 					textDecorationLine: 'underline',
 					}}>
-					Forgot password
+					Mot de passe oublié
 				</Text>
 				</View>
 			</View>
@@ -104,9 +118,9 @@ const Index = ({ style = {}, navigation }) => {
 				{load === false ? (
 				<TouchableOpacity
 					style={styles.button}
-					onPress={handleLogin}>
+					onPress={handleLoginSubmit}>
 					<Text style={{ color: 'white', fontWeight: 'bold' }}>
-					Login
+					Connecter
 					</Text>
 				</TouchableOpacity>
 				) : (
@@ -124,7 +138,7 @@ const Index = ({ style = {}, navigation }) => {
 						textAlign: 'center',
 						fontWeight: '700'
 					}}>
-					Don't have an account?
+					Vous n'avez pas de compte?
 					</Text>
 					<TouchableOpacity onPress={() => navigation.replace(SCREENS.SIGNUP)}>
 						<Text
@@ -135,7 +149,7 @@ const Index = ({ style = {}, navigation }) => {
 							textAlign: 'center',
 							marginHorizontal: 3
 						}}>
-						Signup
+						Inscrivez-vous
 						</Text>
 					</TouchableOpacity>
 				</View>

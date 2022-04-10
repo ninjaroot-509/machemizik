@@ -57,7 +57,7 @@ const Index = ({ songs, playlists, navigation }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({ songs: state?.player.songs, playlists: state?.storage?.playlists });
+const mapStateToProps = (state) => ({ songs: state?.storage.songs, playlists: state?.storage?.playlists });
 export default connect(mapStateToProps, null)(Index);
 
 const styles = StyleSheet.create({
