@@ -16,6 +16,7 @@ const storage = (state = storageState, { type, payload }) => {
 				recents: 'current',
 				playlists: 'current',
 				user: 'current',
+				cart: 'current',
 				...payload,
 			};
 
@@ -32,6 +33,26 @@ const storage = (state = storageState, { type, payload }) => {
 				recents: config?.recents === 'current' ? state?.recents : payload?.recents,
 				playlists: config?.playlists === 'current' ? state?.playlists : payload?.playlists,
 				user: config?.user === 'current' ? state?.user : payload?.user,
+				cart: config?.cart === 'current' ? state?.cart : payload?.cart,
+			};
+
+		case DISPATCHES.SET_CURRENT_SONG:
+			const config2 = {
+				playback: 'current',
+				soundObj: 'current',
+				detail: 'current',
+				playbackStatus: 'current',
+				...payload,
+			};
+
+			return {
+				...state,
+				currentSong: {
+					playback: config2?.playback === 'current' ? state?.currentSong?.playback : payload?.playback,
+					soundObj: config2?.soundObj === 'current' ? state?.currentSong?.soundObj : payload?.soundObj,
+					detail: config2?.detail === 'current' ? state?.currentSong?.detail : payload?.detail,
+					playbackStatus: config2?.playbackStatus === 'current' ? state?.currentSong?.playbackStatus : payload?.playbackStatus,
+				},
 			};
 
 		default:

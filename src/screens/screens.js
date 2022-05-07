@@ -11,5 +11,7 @@ import MySong from './MySong';
 import Recent from './Recent';
 import Playlists from './Playlists';
 import Playlist from './Playlist';
+import SongDetail from './SongDetail';
+import Cart from './Cart';
 
-export { Loading, Search, Playing, Home, OnBoard, Login, Signup, Songs, Favourite, MySong, Recent, Playlists, Playlist };
+export { Loading, Search, Playing, Home, OnBoard, Login, Signup, Songs, SongDetail, Cart, Favourite, MySong, Recent, Playlists, Playlist };

@@ -152,7 +152,7 @@ const Index = ({ song, songs, dispatch, route: { params }, navigation: { goBack 
 		}
 	};
 
-	const handleStop = async (after = () => {}) => {
+	const handleStop = async (after = () => { }) => {
 		_e({ stop: true });
 
 		if (song?.soundObj?.isLoaded) {
@@ -338,11 +338,11 @@ const Index = ({ song, songs, dispatch, route: { params }, navigation: { goBack 
 								<Icon name={song?.soundObj?.isPlaying ? `pause` : `play`} color="#ffffff" />
 							</View>
 						</TouchableOpacity>
-						{/* <TouchableOpacity style={styles.btn} onPress={() => (song?.soundObj?.isPlaying ? handleStop(() => {}) : () => {})} disabled={actions?.stop}>
+						<TouchableOpacity style={styles.btn} onPress={() => (song?.soundObj?.isPlaying ? handleStop(() => { }) : () => { })} disabled={actions?.stop}>
 							<Animated.View style={{ opacity: stopBtnAnim }}>
 								<Icon family="Ionicons" name="stop-outline" color="#ffffff" />
 							</Animated.View>
-						</TouchableOpacity> */}
+						</TouchableOpacity>
 						<TouchableOpacity onPress={handleNext}>
 							<Icon name="skip-forward" color="#ffffff" />
 						</TouchableOpacity>
@@ -353,7 +353,7 @@ const Index = ({ song, songs, dispatch, route: { params }, navigation: { goBack 
 	);
 };
 
-const mapStateToProps = (state) => ({ song: state?.storage?.currentSong, songs: state?.storage?.songs });
+const mapStateToProps = (state) => ({ song: state?.storage?.currentSong, songs: state?.storage?.mysongs });
 const mapDispatchToProps = (dispatch) => ({ dispatch });
 export default connect(mapStateToProps, mapDispatchToProps)(memo(Index));
 

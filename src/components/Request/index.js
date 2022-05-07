@@ -85,6 +85,16 @@ const getMySongDownload = (token) =>
     })
     .then((res) => res.data);
 
+// get carts
+const getMyCart = (token) =>
+  axios
+    .get(`${BASE_URL_API_HTTP}mizik/cart`, {
+      headers: {
+        authorization: `Token ${token}`,
+      },
+    })
+    .then((res) => res.data);
+
 // notification
 const getNotifications = (token) =>
   axios
@@ -151,6 +161,24 @@ const postEditProfile = (token, dataBody) =>
     })
     .then((res) => res.data);
 
+const postAddToCart = (token, dataBody) =>
+    axios
+      .post(`${BASE_URL_API_HTTP}mizik/cart`, dataBody, {
+        headers: {
+          authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => res.data);
+
+const postRemoveToCart = (token, dataBody) =>
+    axios
+      .post(`${BASE_URL_API_HTTP}mizik/cart-remove`, dataBody, {
+        headers: {
+          authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => res.data);
+
 export default {
   // section GET
   getUser,
@@ -162,11 +190,14 @@ export default {
   getMySong,
   getMyAlbum,
   getMySongDownload,
+  getMyCart,
   // section POST
   postHandleLogin,
   postHandleSignup,
   postAddAlbum,
   postAddSong,
   postAddSongDownload,
+  postAddToCart,
+  postRemoveToCart,
   postEditProfile,
 };

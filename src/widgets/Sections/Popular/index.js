@@ -11,11 +11,9 @@ const Index = ({ songs, style = {} }) => {
 	const { navigate } = useNavigation();
 	const [audios, setAudios] = useState([]);
 
-	const handlePress = (song, index) => {
-		navigate(SCREENS.PLAYING, {
-			forcePlay: true,
+	const handlePress = (song) => {
+		navigate(SCREENS.SONGDETAIL, {
 			song,
-			index,
 		});
 	};
 
@@ -34,7 +32,7 @@ const Index = ({ songs, style = {} }) => {
 						imageURL={index?.img}
 						title={index?.title}
 						author={index?.author}
-						onPress={() => handlePress(index, key)}
+						onPress={() => handlePress(index)}
 					/>
 				))}
 			</Container>

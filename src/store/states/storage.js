@@ -10,4 +10,11 @@ export default {
 	recents: {},
 	favourites: {},
 	playlists: {},
+	cart: {},
+	currentSong: {
+		playback: {},
+		soundObj: {},
+		detail: {},
+		playbackStatus: {},
+	},
 };

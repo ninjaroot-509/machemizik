@@ -10,6 +10,7 @@ import { Request } from '../components';
 const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 	const [assets] = useAssets([require('../../assets/splash.png')]);
 
+
 	const getStorage = () => {
 		return new Promise(async (resolve) => {
 			const token = await Storage.get('token', false);
@@ -130,6 +131,27 @@ const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 				});
 			}
 
+			try {
+				const cartsLa = await Request.getMyCart(token);
+				await Storage.store('cart', cartsLa, true);
+				const cart = await Storage.get('cart', true);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						cart,
+					},
+				});
+			} catch (e) {
+				console.log("The error is : " + Object.values(e.response.data).flat())
+				const cart = await Storage.get('cart', true);
+				dispatch({
+					type: DISPATCHES.STORAGE,
+					payload: {
+						cart,
+					},
+				});
+			}
+
 			const recents = await Storage.get('recents', true);
 			const playlists = await Storage.get('playlists', true);
 
@@ -142,11 +164,14 @@ const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 				},
 			});
 
-			if (songs && recents && recents.length > 0) {
+
+
+			if (recents && recents.length > 0) {
+				const mysongs = await Storage.get('mysongs', true);
 				dispatch({
 					type: DISPATCHES.SET_CURRENT_SONG,
-					payload: {
-						detail: songs[recents[0]],
+					payload: { 
+						detail: mysongs[0],
 					},
 				});
 			}
@@ -156,9 +181,9 @@ const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 	};
 
 	const init = async () => {
+		await getStorage();
 		const token = await Storage.get('token', false);
 		if (token) {
-			await getStorage();
 			replace(SCREENS.HOME);
 		} else {
 			replace(SCREENS.ONBOARD);
@@ -170,7 +195,7 @@ const Loading = ({ songs, dispatch, navigation: { replace } }) => {
 	}, []);
 
 	return (
-		<View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff'}}>
+		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffffff' }}>
 			<ActivityIndicator size="large" color={'red'} />
 		</View>
 	)

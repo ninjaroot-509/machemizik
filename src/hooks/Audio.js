@@ -52,7 +52,7 @@ export const configAndPlay =
 				const playbackObject = new Audio.Sound();
 				play(
 					playbackObject,
-					uri,
+					uri, 
 					shouldPlay
 				)((soundObj) => {
 					next(playbackObject, soundObj);

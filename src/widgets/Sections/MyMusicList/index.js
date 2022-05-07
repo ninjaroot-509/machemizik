@@ -45,9 +45,11 @@ const Index = ({ songs, dispatch, style = {}, audios = [], indicator = true, use
 		setFavourites();
 	};
 
-	const onPlayPress = (song) => {
-		navigate(SCREENS.SONGDETAIL, {
+	const onPlayPress = (song, index) => {
+		navigate(SCREENS.PLAYING, {
+			forcePlay: true,
 			song,
+			index,
 		});
 	};
 
@@ -64,78 +66,49 @@ const Index = ({ songs, dispatch, style = {}, audios = [], indicator = true, use
 			}}
 			showsVerticalScrollIndicator={indicator}
 		>
-			{useIndex
-				? audios.map((index, key) => (
-						<Card.MusicList
-							key={key}
-							imageURL={songs[index]?.img}
-							title={songs[index]?.title}
-							author={songs[index]?.author}
-							duration={songs[index]?.durationMillis}
-							onPlayPress={() => onPlayPress(songs[index], index)}
-							moreOptions={[
-								{
-									text: 'Play',
-									onPress: () => onPlayPress(songs[index], index),
-								},
-								{
-									text: favs.includes(index) ? 'Remove from favorite' : 'Add to favorite',
-									onPress: () => handleAddToFavourite(index),
-								},
-								{
-									text: 'Add to playlist',
-									onPress: () => {
-										setPlaylistModal(true);
-										setSongIndex(index);
-									},
-								},
-							]}
-						/>
-				  ))
-				: audios.map((song, key) => {
-						const index = songs.findIndex((i) => i?.id === song?.id);
+			{audios.map((song, key) => {
+				const index = songs.findIndex((i) => i?.id === song?.id);
 
-						return (
-							<Card.MusicList
-								key={key}
-								imageURL={song?.img}
-								title={song?.title}
-								author={song?.author}
-								duration={song?.durationMillis}
-								onPlayPress={() => onPlayPress(song, index)}
-								moreOptions={[
-									{
-										text: 'Play',
-										onPress: () => onPlayPress(song, index),
-									},
-									{
-										text: favs.includes(index) ? 'Remove from favorite' : 'Add to favorite',
-										onPress: () => handleAddToFavourite(index),
-									},
-									{
-										text: 'Add to playlist',
-										onPress: () => {
-											setPlaylistModal(true);
-											setSongIndex(index);
-										},
-									},
-								]}
-							/>
-						);
-				  })}
+				return (
+					<Card.MusicList
+						key={key}
+						imageURL={song?.img}
+						title={song?.title}
+						author={song?.author}
+						duration={song?.durationMillis}
+						onPlayPress={() => onPlayPress(song, index)}
+						moreOptions={[
+							{
+								text: 'Play',
+								onPress: () => onPlayPress(song, index),
+							},
+							{
+								text: favs.includes(index) ? 'Retirer du favori' : 'Ajouter aux Favoris',
+								onPress: () => handleAddToFavourite(index),
+							},
+							{
+								text: 'Ajouter à la playlist',
+								onPress: () => {
+									setPlaylistModal(true);
+									setSongIndex(index);
+								},
+							},
+						]}
+					/>
+				);
+			})}
 
 			<Modal.Playlist visible={playlistModal} onClose={setPlaylistModal} songIndex={songIndex} />
 		</ScrollView>
 	);
 };
 
-const mapStateToProps = (state) => ({ songs: state?.storage?.songs });
+const mapStateToProps = (state) => ({ songs: state?.storage?.mysongs });
 const mapDispatchToProps = (dispatch) => ({ dispatch });
 export default connect(mapStateToProps, mapDispatchToProps)(memo(Index));
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: '#ffffff'
 	},
 });

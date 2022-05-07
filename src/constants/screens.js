@@ -11,3 +11,5 @@ export const MYSONG = 'MYSONG';
 export const RECENT = 'RECENT';
 export const PLAYLISTS = 'PLAYLISTS';
 export const PLAYLIST = 'PLAYLIST';
+export const SONGDETAIL = 'SONGDETAIL';
+export const CART = 'CART';

@@ -113,7 +113,7 @@ const Index = ({ song, songs, dispatch }) => {
 		}
 	};
 
-	const handleStop = async (after = () => {}) => {
+	const handleStop = async (after = () => { }) => {
 		_e({ stop: true });
 
 		if (song?.soundObj?.isLoaded) {
@@ -211,7 +211,7 @@ const Index = ({ song, songs, dispatch }) => {
 
 	return (
 		<View style={styles.container}>
-			<View style={[{...StyleSheet.absoluteFill}, styles.tracker]}>
+			<View style={[{ ...StyleSheet.absoluteFill }, styles.tracker]}>
 				<Slider
 					minimumValue={0}
 					maximumValue={song?.detail?.durationMillis}
@@ -239,11 +239,15 @@ const Index = ({ song, songs, dispatch }) => {
 				</View>
 			</TouchableWithoutFeedback>
 			<View style={styles.actions}>
-				
+
+				<TouchableOpacity style={styles.btn} onPress={handlePrev} disabled={actions?.prev}>
+					<Icon name="skip-back" color="#C4C4C4" />
+				</TouchableOpacity>
+
 				<TouchableOpacity style={styles.btn} onPress={handlePlayAndPause} disabled={actions?.play}>
 					<Icon name={song?.soundObj?.isPlaying ? `pause` : `play`} color="#f24160" />
 				</TouchableOpacity>
-			
+
 				<TouchableOpacity style={styles.btn} onPress={handleNext} disabled={actions?.next}>
 					<Icon name="skip-forward" color="#C4C4C4" />
 				</TouchableOpacity>
@@ -252,7 +256,7 @@ const Index = ({ song, songs, dispatch }) => {
 	);
 };
 
-const mapStateToProps = (state) => ({ song: state?.storage?.currentSong, songs: state?.storage?.songs });
+const mapStateToProps = (state) => ({ song: state?.storage?.currentSong, songs: state?.storage?.mysongs });
 const mapDispatchToProps = (dispatch) => ({ dispatch });
 export default connect(mapStateToProps, mapDispatchToProps)(memo(Index));
 
